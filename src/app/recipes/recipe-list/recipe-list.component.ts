@@ -1,18 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import {Recipe} from '../../models/recipe.model';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Recipe} from '../../shared/recipe.model';
+import {RecipeService} from '../../shared/recipe.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit {
-  recipes: Recipe[] = [new Recipe('cernohor', 'prvy rezen', 'https://recepty.simaco.sk/wp-content/uploads/2019/01/%C4%8Cernohorsk%C3%BD-reze%C5%88-plnen%C3%BD-%C5%A1ampi%C5%88%C3%B3novou-zmesou-2000x1500.jpg'),
-    new Recipe('cernohor', 'prvy rezen', 'https://recepty.simaco.sk/wp-content/uploads/2019/01/%C4%8Cernohorsk%C3%BD-reze%C5%88-plnen%C3%BD-%C5%A1ampi%C5%88%C3%B3novou-zmesou-2000x1500.jpg')];
+export class RecipeListComponent implements OnInit, OnDestroy {
+  //@Output() recipeWasSelected = new EventEmitter<Recipe>();
+  recipesChanged = new Subscription();
+  recipes: Recipe[];
 
-  constructor() { }
+
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
+    this.recipesChanged = this.recipeService.recipesChanged.subscribe(
+      (recipes: Recipe[]) => {
+        this.recipes = recipes;
+      }
+    );
   }
+
+  ngOnDestroy(): void {
+    this.recipesChanged.unsubscribe();
+  }
+
+  // onRecipeSelected(recipe: Recipe){
+  //   //this.recipeWasSelected.emit(recipe);
+  // }
 
 }
