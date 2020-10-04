@@ -1,46 +1,52 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img [src]="recipe.imagePath" alt="" class="img-resaponsive" style="max-height: 200px">
+<div class="row" style="padding: 15px">
+  <div class="col-xs-12 col-sm-6 order-sm-1" style="padding: 0px">
+    <img [src]="recipe.imagePath" [alt]="recipe.name + ' image'" class="img-resaponsive" style="max-height: 200px">
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{recipe.name}}</h1>
-  </div>
-</div>
-<div class="rpw">
-  <div class="col-xs-12">
-    <div class="btn-group">
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
+
+  <div class="col-xs-12 col-sm-6 order-sm-0">
+    <div class="row">
+      <h1>{{recipe.name}}</h1>
+    </div>
+
+    <div class="row">
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
         >
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" id="manageRecipeDropdown" aria-labelledby="dropdownMenuButton">
-        <li><a style="cursor: pointer" (click)="addToShoppingList()">To shopping list</a></li>
-        <li><a style="cursor: pointer" (click)="onEditRecipe()">Edit recipe</a></li>
-        <li><a style="cursor: pointer" (click)="onDeleteRecipe()">Delete recipe</a></li>
+          Manage Recipe <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" id="manageRecipeDropdown" aria-labelledby="dropdownMenuButton">
+          <li><a style="cursor: pointer" (click)="addToShoppingList()">To shopping list</a></li>
+          <li><a style="cursor: pointer" (click)="onEditRecipe()">Edit recipe</a></li>
+          <li><a style="cursor: pointer" (click)="onDeleteRecipe()">Delete recipe</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <ul class="list-group">
+        <li class="list-group-item"
+            *ngFor="let ingredient of recipe.ingredients">
+          {{ ingredient.name }} - {{ ingredient.amount }}
+        </li>
       </ul>
     </div>
   </div>
 </div>
-<div class="row">
+
+
+<div class="row" style="padding: 15px">
   <div class="col-xs-12">
-    {{ recipe.description}}
+    <div>
+      {{recipe.description}}
+    </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li class="list-group-item"
-      *ngFor="let ingredient of recipe.ingredients">
-        {{ ingredient.name }} - {{ ingredient.amount }}
-      </li>
-    </ul>
-  </div>
-</div>
+
+
+

@@ -1,64 +1,43 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12" style="">
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Save</button>
-          <button type="button" class="btn btn-danger" (click)="onCancelEditing()">Cancel</button>
-        </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Save</button>
+      <button type="button" class="btn btn-danger" (click)="onCancelEditing()">Cancel</button>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name">
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+      <div class="form-group">
+        <label for="imagePath">Image URL</label>
+        <input type="text" class="form-control" id="imagePath" formControlName="imagePath" #imagePath>
+        <img [src]="imagePath.value" class="img-fluid" style="max-width: available">
+      </div>
+      <div class="form-group">
+        <label for="desc">Description</label>
+        <textarea type="text" class="form-control" id="desc" formControlName="desc"></textarea>
+      </div>
+
+      <label for="ingredientsPart">Ingredients</label>
+      <div formArrayName="ingredients" id="ingredientsPart">
+        <div class="form-row"
+             [formGroupName]="i"
+             *ngFor="let ingredientCtrl of controls; let i = index"
+             style="">
+          <div class="col-6">
+            <input type="text" class="form-control" formControlName="name" placeholder="Ingredient">
+          </div>
+          <div class="col-4">
+            <input type="number" class="form-control" formControlName="amount" placeholder="Amount">
+          </div>
+          <div class="col-2">
+            <button class="btn btn-danger" type="button" (click)="onDeleteIngredient(i)">X</button>
           </div>
         </div>
+        <button class="btn btn-success" (click)="onAddIngredient()" type="button">Add ingredient</button>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="imagePath">Image URL</label>
-            <input type="text" class="form-control" id="imagePath" formControlName="imagePath" #imagePath>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <img [src]="imagePath.value" class="img-fluid">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="desc">Description</label>
-            <textarea type="text" class="form-control" id="desc" rows="6" formControlName="desc"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12" formArrayName="ingredients">
-          <div class="row"
-               [formGroupName]="i"
-               *ngFor="let ingredientCtrl of controls; let i = index"
-                style="margin-top: 10px">
-            <div class="col-xs-8">
-              <input type="text" class="form-control" formControlName="name">
-            </div>
-            <div class="col-xs-2">
-              <input type="number" class="form-control" formControlName="amount">
-            </div>
-            <div class="col-xs-2">
-              <button class="btn btn-danger" type="button" (click)="onDeleteIngredient(i)">X</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <button class="btn btn-success" (click)="onAddIngredient()" type="button" >Add ingredient</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </form>
   </div>
 </div>
