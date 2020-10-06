@@ -18,9 +18,7 @@ export class DataStorageService {
   }
 
   fetchRecipes(){
-    return this.http.get<Recipe[]>('https://recipebook-2643b.firebaseio.com/recipes.json', {
-      params: new HttpParams().set('auth', this.authService.token)
-    })
+    return this.http.get<Recipe[]>('https://recipebook-2643b.firebaseio.com/recipes.json')
       .pipe(map(recipes => {
         return recipes.map(recipe => {
           return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
