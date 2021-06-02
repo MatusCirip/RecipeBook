@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
 
     if (this.logInMode){
       this.authService.login(email, password).subscribe(response => {
-        console.log(response);
+        //console.log(response);
         this.isLoading = false;
         this.router.navigate(['/recipes']);
       }, error => {
@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit {
       });
     } else {
       this.authService.signup(email, password).subscribe(response => {
-        console.log(response);
+        //console.log(response);
         this.isLoading = false;
         this.router.navigate(['/recipes']);
       }, error => {

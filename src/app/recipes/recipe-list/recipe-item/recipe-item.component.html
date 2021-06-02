@@ -5,7 +5,7 @@
 >
   <div class="float-left">
     <h4 class="list-group-item-heading">{{recipe.name}}</h4>
-    <p class="list-group-item-text">{{recipe.description}}</p>
+    <p class="list-group-item-text">{{recipe.description | slice:0:30}}</p>
   </div>
   <span class="float-right">
         <img [src]="recipe.imagePath" [alt]="recipe.name" class="img-responsive" style="max-height: 50px;">
